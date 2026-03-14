@@ -4,539 +4,549 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Griff Sabaku — Candidature</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --s:#c8a45a; --sl:#e8c97a; --sd:#8a6820;
-  --bg:#060402; --bg2:#0e0804;
-  --tx:#f0e6cc; --mu:#5a4020; --ac:#d4853a;
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --s:#c8a45a;--sl:#e8c97a;--sd:#8a6820;--sdd:#4a3010;
+  --bg:#050301;--bg2:#0c0703;--bg3:#120a04;
+  --tx:#f0e6cc;--mu:#6a4f28;--ac:#d4853a;--ac2:#b06020;
 }
-
-html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); font-family:'Crimson Text',Georgia,serif; cursor:none; color:var(--tx); }
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'Crimson Text',Georgia,serif;cursor:none;color:var(--tx);}
 
 /* CURSOR */
-#cur { position:fixed; width:6px; height:6px; background:var(--s); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
-#cur2 { position:fixed; width:36px; height:36px; border:1px solid rgba(200,164,90,0.35); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s,height .2s,border-color .2s; }
+#cur{position:fixed;width:5px;height:5px;background:var(--sl);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur2{position:fixed;width:28px;height:28px;border:1px solid rgba(200,164,90,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;}
 
-/* CANVAS FOND */
-#bgc { position:fixed; inset:0; z-index:0; }
-
-/* SCANLINES */
-#scan { position:fixed; inset:0; z-index:1; pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px); }
+/* CANVAS */
+#bgc{position:fixed;inset:0;z-index:0;}
 
 /* VIGNETTE */
-#vig { position:fixed; inset:0; z-index:1; pointer-events:none;
-  background:radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%); }
+#vig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.75) 100%);}
 
-/* PAGES CONTAINER */
-#pages { position:fixed; inset:0; z-index:2; }
-.page { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  opacity:0; pointer-events:none; transition:opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
-  transform:translateY(60px); }
-.page.active { opacity:1; pointer-events:all; transform:translateY(0); }
-.page.exit-up { opacity:0; transform:translateY(-60px); }
-.page.exit-down { opacity:0; transform:translateY(60px); }
+/* SCANLINES */
+#scan{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.05) 2px,rgba(0,0,0,.05) 3px);}
 
-/* TOP NAVBAR */
-#topnav { position:fixed; top:0; left:0; right:0; z-index:100;
-  display:flex; align-items:center; justify-content:center;
-  padding:.9rem 2rem; gap:0;
-  background:linear-gradient(to bottom,rgba(6,4,2,0.9),transparent);
-  border-bottom:1px solid rgba(200,164,90,0.06); }
-.tnav { font-family:'Cinzel',serif; font-size:9px; letter-spacing:.25em; color:var(--mu);
-  text-transform:uppercase; cursor:none; padding:.5rem 1.4rem; position:relative;
-  transition:color .3s; white-space:nowrap; }
-.tnav::after { content:''; position:absolute; bottom:0; left:50%; right:50%;
-  height:1px; background:var(--s); transition:left .35s ease, right .35s ease; }
-.tnav:hover { color:rgba(200,164,90,.6); }
-.tnav.on { color:var(--s); }
-.tnav.on::after { left:10%; right:10%; }
-.tnav-sep { width:1px; height:10px; background:rgba(200,164,90,.1); flex-shrink:0; }
+/* TOP NAV */
+#topnav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;gap:0;
+  padding:.7rem 2rem;
+  border-bottom:1px solid rgba(200,164,90,.07);
+  backdrop-filter:blur(2px);
+}
+#topnav::before{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(to right,transparent,rgba(200,164,90,.15),transparent);}
+.tnav{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.28em;color:var(--mu);
+  text-transform:uppercase;cursor:none;padding:.45rem 1.2rem;position:relative;transition:color .3s;white-space:nowrap;}
+.tnav::after{content:'';position:absolute;bottom:-1px;left:50%;right:50%;height:1px;background:var(--s);transition:left .3s,right .3s;}
+.tnav:hover{color:rgba(200,164,90,.5);}
+.tnav.on{color:var(--s);}
+.tnav.on::after{left:8%;right:8%;}
+.tnav-sep{width:1px;height:8px;background:rgba(200,164,90,.1);flex-shrink:0;}
 
-/* NAV ARROWS */
-.nav-arrow { position:fixed; left:50%; transform:translateX(-50%); z-index:100;
-  font-family:'Cinzel',serif; font-size:9px; letter-spacing:.3em; color:var(--mu);
-  cursor:none; transition:color .3s; display:flex; flex-direction:column; align-items:center; gap:6px; }
-.nav-arrow:hover { color:var(--s); }
-#nav-up { top:1.5rem; }
-#nav-dn { bottom:1.5rem; }
-.nav-arrow .arr { width:1px; height:30px; background:linear-gradient(to bottom,var(--s),transparent); }
-#nav-up .arr { background:linear-gradient(to top,var(--s),transparent); }
+/* ARROWS */
+.nav-arr{position:fixed;left:50%;transform:translateX(-50%);z-index:200;
+  font-family:'Cinzel',serif;font-size:8px;letter-spacing:.3em;color:var(--mu);
+  cursor:none;transition:color .3s;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.nav-arr:hover{color:var(--s);}
+#nav-up{top:3.8rem;}#nav-dn{bottom:1.2rem;}
+.nav-arr .al{width:1px;height:24px;}
+#nav-up .al{background:linear-gradient(to top,var(--sd),transparent);}
+#nav-dn .al{background:linear-gradient(to bottom,var(--sd),transparent);}
 
-/* PAGE INDICATOR */
-#pgnum { position:fixed; left:2rem; bottom:2rem; z-index:100; font-family:'Cinzel',serif;
-  font-size:10px; letter-spacing:.3em; color:var(--mu); }
-#pgnum span { color:var(--s); }
+/* PAGE COUNT */
+#pgc{position:fixed;left:1.5rem;bottom:1.5rem;z-index:200;
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:var(--mu);}
+#pgc span{color:var(--s);}
 
-/* ═══════════════ PAGE 0 — INTRO ═══════════════ */
-.p0-inner { text-align:center; position:relative; }
-.p0-ring { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
-.p0-ring svg { animation:spinR 30s linear infinite; }
-.p0-tag { font-family:'Cinzel',serif; font-size:9px; letter-spacing:.5em; color:var(--mu); text-transform:uppercase; margin-bottom:2rem; }
-.p0-name { font-family:'Cinzel',serif; font-size:clamp(4rem,10vw,8rem); font-weight:900; line-height:.85;
-  -webkit-text-stroke:1.5px var(--s); color:transparent; letter-spacing:-.02em; }
-.p0-name .sub { font-size:clamp(2rem,5vw,4rem); -webkit-text-stroke:1px var(--sd); display:block; margin-top:.2rem; }
-.p0-line { width:1px; height:60px; background:linear-gradient(to bottom,var(--sd),transparent); margin:.2rem auto; }
-.p0-clan { font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.35em; color:var(--ac); text-transform:uppercase; margin-top:1.5rem; }
-.p0-hint { font-family:'Cinzel',serif; font-size:8px; letter-spacing:.4em; color:var(--mu); margin-top:3rem; animation:blink 2s infinite; }
+/* PAGES */
+#pages{position:fixed;inset:0;z-index:2;}
+.page{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);
+  transform:translateY(50px);}
+.page.active{opacity:1;pointer-events:all;transform:translateY(0);}
+.page.exit-up{opacity:0;transform:translateY(-50px);}
+.page.exit-dn{opacity:0;transform:translateY(50px);}
 
-/* ═══════════════ PAGE 1 — IDENTITÉ ═══════════════ */
-.p1-inner { display:grid; grid-template-columns:1fr 1fr; gap:0; width:min(900px,90vw); height:min(520px,80vh); }
-.p1-left { border:1px solid rgba(200,164,90,0.1); overflow:hidden; position:relative; }
-.p1-left img { width:100%; height:100%; object-fit:cover; filter:saturate(.7) sepia(.2); transition:filter .5s; }
-.p1-left:hover img { filter:saturate(1); }
-.p1-left-overlay { position:absolute; inset:0; background:linear-gradient(to right,transparent 60%,var(--bg) 100%); pointer-events:none; }
-.p1-left-label { position:absolute; bottom:1.5rem; left:1.5rem; }
-.p1-left-label .lbl { font-family:'Cinzel',serif; font-size:8px; letter-spacing:.35em; color:var(--mu); text-transform:uppercase; }
-.p1-left-label .val { font-family:'Cinzel',serif; font-size:1.4rem; font-weight:700; color:var(--sl); margin-top:2px; }
-.p1-right { border:1px solid rgba(200,164,90,0.1); border-left:none; display:flex; flex-direction:column; }
-.p1-stat { flex:1; padding:1.5rem 2rem; position:relative; border-bottom:1px solid rgba(200,164,90,0.06); overflow:hidden; transition:background .3s; }
-.p1-stat:last-child { border-bottom:none; }
-.p1-stat::before { content:''; position:absolute; left:0; top:0; width:2px; height:0; background:var(--s); transition:height .4s ease; }
-.p1-stat:hover::before { height:100%; }
-.p1-stat:hover { background:rgba(200,164,90,0.02); }
-.p1-lbl { font-family:'Cinzel',serif; font-size:8px; letter-spacing:.3em; color:var(--mu); text-transform:uppercase; margin-bottom:6px; }
-.p1-val { font-size:1.15rem; font-weight:600; color:var(--sl); }
+/* ══ PAGE 0 — INTRO ══ */
+.p0{text-align:center;position:relative;padding:2rem;}
+.p0-rings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.p0-super{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.6em;color:var(--mu);
+  text-transform:uppercase;margin-bottom:1.8rem;}
+.p0-name{font-family:'Cinzel Decorative',serif;font-size:clamp(3.5rem,9vw,7.5rem);
+  font-weight:700;line-height:.88;letter-spacing:-.01em;position:relative;}
+.p0-name .n1{display:block;-webkit-text-stroke:1.5px var(--s);color:transparent;
+  text-shadow:0 0 80px rgba(200,164,90,.08);}
+.p0-name .n2{display:block;font-size:clamp(1.8rem,4.5vw,3.8rem);
+  -webkit-text-stroke:1px var(--sd);color:transparent;margin-top:.15rem;}
+.p0-sep{display:flex;align-items:center;gap:1rem;margin:1.5rem auto;width:min(300px,70vw);}
+.p0-sep::before,.p0-sep::after{content:'';flex:1;height:1px;
+  background:linear-gradient(to right,transparent,var(--sd),transparent);}
+.p0-diamond{width:5px;height:5px;background:var(--sd);transform:rotate(45deg);flex-shrink:0;}
+.p0-clan{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.35em;color:var(--ac);
+  text-transform:uppercase;}
+.p0-badges{display:flex;justify-content:center;gap:8px;margin-top:1.5rem;flex-wrap:wrap;}
+.p0-hint{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.45em;color:var(--mu);
+  margin-top:2.5rem;animation:blink 2.5s infinite;}
 
-/* ═══════════════ PAGE 2 — HISTOIRE ═══════════════ */
-.p2-inner { width:min(820px,88vw); position:relative; }
-.page-title { font-family:'Cinzel',serif; font-size:9px; letter-spacing:.5em; color:var(--mu); text-transform:uppercase; margin-bottom:2.5rem; display:flex; align-items:center; gap:1rem; }
-.page-title::after { content:''; flex:1; height:1px; background:linear-gradient(to right,rgba(200,164,90,.2),transparent); }
-.page-title .pnum { font-size:2.5rem; font-weight:900; color:transparent; -webkit-text-stroke:1px rgba(200,164,90,.12); line-height:1; margin-right:.5rem; font-family:'Cinzel',serif; }
-.txt-body { font-size:17px; line-height:1.9; color:var(--tx); column-count:2; column-gap:3rem; column-rule:1px solid rgba(200,164,90,0.06); }
-.txt-body p + p { margin-top:1rem; }
-.txt-body .hl { color:var(--s); }
-.txt-body em { color:var(--sl); font-style:italic; }
-.qb { column-span:all; border-left:2px solid var(--sd); padding:.6rem 1.2rem; margin:1.2rem 0; color:var(--s); font-style:italic; font-size:1.05rem; }
+/* ══ PAGE 1 — IDENTITÉ ══ */
+.p1{display:grid;grid-template-columns:1fr 1fr;gap:0;width:min(900px,90vw);height:min(500px,78vh);}
+.p1-vis{position:relative;overflow:hidden;border:1px solid rgba(200,164,90,.08);}
+.p1-vis canvas{width:100%;height:100%;display:block;}
+.p1-vis-over{position:absolute;inset:0;
+  background:linear-gradient(to right,transparent 55%,var(--bg) 100%);pointer-events:none;}
+.p1-vis-lbl{position:absolute;bottom:1.5rem;left:1.5rem;}
+.p1-vis-lbl .vl{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.35em;color:var(--mu);
+  text-transform:uppercase;margin-bottom:3px;}
+.p1-vis-lbl .vv{font-family:'Cinzel Decorative',serif;font-size:1.3rem;color:var(--sl);}
+.p1-stats{border:1px solid rgba(200,164,90,.08);border-left:none;display:flex;flex-direction:column;}
+.p1-stat{flex:1;padding:1.2rem 1.8rem;position:relative;border-bottom:1px solid rgba(200,164,90,.05);
+  overflow:hidden;transition:background .3s;}
+.p1-stat:last-child{border-bottom:none;}
+.p1-stat::before{content:'';position:absolute;left:0;top:0;width:2px;height:0;
+  background:linear-gradient(to bottom,transparent,var(--s),transparent);transition:height .4s;}
+.p1-stat:hover{background:rgba(200,164,90,.025);}
+.p1-stat:hover::before{height:100%;}
+.p1-lbl{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.35em;color:var(--mu);
+  text-transform:uppercase;margin-bottom:5px;}
+.p1-val{font-size:1.1rem;font-weight:600;color:var(--sl);letter-spacing:.05em;}
 
-/* ═══════════════ PAGE 3 — APPARENCE ═══════════════ */
-.p3-inner { width:min(820px,88vw); }
+/* ══ PAGES CONTENU ══ */
+.pcont{width:min(840px,88vw);position:relative;}
 
-/* ═══════════════ PAGE 4/5 — VIDE ═══════════════ */
-.empty-page { text-align:center; }
-.empty-page .ep-icon { width:60px; height:60px; margin:0 auto 1.5rem; opacity:.25; }
-.empty-page .ep-title { font-family:'Cinzel',serif; font-size:11px; letter-spacing:.4em; color:var(--mu); text-transform:uppercase; margin-bottom:.75rem; }
-.empty-page .ep-text { font-style:italic; color:var(--mu); font-size:15px; }
-.empty-page .ep-border { width:1px; height:50px; background:linear-gradient(to bottom,var(--sd),transparent); margin:2rem auto 0; }
+/* titre de section */
+.sec-hd{display:flex;align-items:flex-end;gap:1.2rem;margin-bottom:2.5rem;position:relative;}
+.sec-hd::after{content:'';position:absolute;bottom:-1rem;left:0;right:0;height:1px;
+  background:linear-gradient(to right,rgba(200,164,90,.2),transparent);}
+.sec-nn{font-family:'Cinzel Decorative',serif;font-size:4.5rem;font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(200,164,90,.1);line-height:1;
+  user-select:none;transition:-webkit-text-stroke .4s;}
+.pcont:hover .sec-nn{-webkit-text-stroke:1px rgba(200,164,90,.2);}
+.sec-tt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;color:var(--s);
+  text-transform:uppercase;padding-bottom:.4rem;}
+
+/* corps texte */
+.txt{font-size:17px;line-height:1.9;color:var(--tx);column-count:2;column-gap:3rem;
+  column-rule:1px solid rgba(200,164,90,.05);}
+.txt p+p{margin-top:.9rem;}
+.txt .hl{color:var(--sl);}
+.txt em{color:var(--s);font-style:italic;}
+
+/* citation */
+.qb{column-span:all;position:relative;margin:1.3rem 0;padding:.7rem 1.4rem .7rem 1.8rem;
+  border-left:2px solid var(--sd);color:var(--s);font-style:italic;font-size:1.05rem;
+  background:rgba(200,164,90,.02);}
+.qb::before{content:'\201C';position:absolute;top:-14px;left:8px;
+  font-size:50px;color:rgba(200,164,90,.08);font-family:Georgia;line-height:1;}
+
+/* sous-titres objectifs */
+.obj-tt{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.4em;color:var(--ac2);
+  text-transform:uppercase;margin:.9rem 0 .4rem;}
+
+/* ══ PAGE MERCI ══ */
+.pmerci{text-align:center;position:relative;padding:2rem;}
 
 /* BADGES */
-.badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:1.75rem; }
-.badge { font-family:'Cinzel',serif; font-size:8px; letter-spacing:.2em; padding:4px 12px;
-  border:1px solid var(--sd); color:var(--s); text-transform:uppercase; position:relative; overflow:hidden; transition:color .3s; cursor:none; }
-.badge::before { content:''; position:absolute; inset:0; background:var(--s); transform:translateX(-101%); transition:transform .3s; }
-.badge:hover { color:var(--bg); }
-.badge:hover::before { transform:translateX(0); }
-.badge span { position:relative; z-index:1; }
+.badges{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.2em;padding:4px 12px;
+  border:1px solid var(--sd);color:var(--s);text-transform:uppercase;position:relative;
+  overflow:hidden;transition:color .3s;cursor:none;}
+.badge::before{content:'';position:absolute;inset:0;background:var(--s);
+  transform:translateX(-101%);transition:transform .3s;}
+.badge:hover{color:var(--bg);}
+.badge:hover::before{transform:translateX(0);}
+.badge span{position:relative;z-index:1;}
 
 /* ANIMATIONS */
-@keyframes spinR { to { transform:rotate(360deg); } }
-@keyframes blink { 0%,100%{opacity:.3} 50%{opacity:1} }
-@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:.9}}
+@keyframes spinCW{to{transform:rotate(360deg)}}
+@keyframes spinCCW{to{transform:rotate(-360deg)}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
-@media(max-width:700px) {
-  body,html { cursor:auto; overflow:auto; }
-  #cur,#cur2 { display:none; }
-  #pages { position:relative; overflow:auto; }
-  .page { position:relative; opacity:1; pointer-events:all; transform:none; min-height:100vh; }
-  .page.exit-up,.page.exit-down { opacity:1; transform:none; }
-  .p1-inner { grid-template-columns:1fr; height:auto; }
-  .p1-left { height:220px; }
-  .p1-right { border-left:1px solid rgba(200,164,90,.1); }
-  .txt-body { column-count:1; }
-  #dots,#nav-up,#nav-dn,#pgnum { display:none; }
+@media(max-width:720px){
+  body,html{cursor:auto;overflow:auto;}
+  #cur,#cur2{display:none;}
+  #pages{position:relative;overflow:auto;}
+  .page{position:relative;opacity:1;pointer-events:all;transform:none;min-height:100vh;}
+  .page.exit-up,.page.exit-dn{opacity:1;transform:none;}
+  .p1{grid-template-columns:1fr;height:auto;}
+  .p1-vis{height:220px;}
+  .p1-stats{border-left:1px solid rgba(200,164,90,.08);}
+  .txt{column-count:1;}
+  #nav-up,#nav-dn,#pgc{display:none;}
 }
 </style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur2"></div>
+<div id="cur"></div><div id="cur2"></div>
 <canvas id="bgc"></canvas>
-<div id="scan"></div>
-<div id="vig"></div>
+<div id="vig"></div><div id="scan"></div>
 
-<!-- NAV -->
 <div id="topnav"></div>
-<div id="nav-up" class="nav-arrow" onclick="go(-1)">
-  <div class="arr"></div>
-  <span>précédent</span>
-</div>
-<div id="nav-dn" class="nav-arrow" onclick="go(1)">
-  <span>suivant</span>
-  <div class="arr"></div>
-</div>
-<div id="pgnum"><span id="cur-pg">01</span> / <span id="tot-pg">05</span></div>
 
-<!-- PAGES -->
+<div id="nav-up" class="nav-arr" onclick="go(-1)">
+  <div class="al"></div><span>précédent</span>
+</div>
+<div id="nav-dn" class="nav-arr" onclick="go(1)">
+  <span>suivant</span><div class="al"></div>
+</div>
+<div id="pgc"><span id="cpg">01</span> / <span id="tpg">07</span></div>
+
 <div id="pages">
 
-  <!-- PAGE 0 : INTRO -->
-  <div class="page active" data-pg="0">
-    <div class="p0-inner">
-      <div class="p0-ring">
-        <svg width="340" height="340" viewBox="0 0 340 340" fill="none">
-          <circle cx="170" cy="170" r="165" stroke="rgba(200,164,90,0.06)" stroke-width="1"/>
-          <circle cx="170" cy="170" r="145" stroke="rgba(200,164,90,0.04)" stroke-width="1" stroke-dasharray="6 4"/>
-          <circle cx="170" cy="170" r="120" stroke="rgba(200,164,90,0.08)" stroke-width="0.5" stroke-dasharray="2 6"/>
-        </svg>
-      </div>
-      <div class="p0-tag">Candidature Whitelist — Naruto RP</div>
-      <div class="p0-name">Griff<span class="sub">Sabaku</span></div>
-      <div class="p0-line"></div>
-      <div class="p0-clan">Clan Sabaku · Suna · Genin</div>
-      <div class="badges" style="justify-content:center">
-        <div class="badge"><span>Suna</span></div>
-        <div class="badge"><span>Genin</span></div>
-        <div class="badge"><span>Clan Sabaku</span></div>
-      </div>
-      <div class="p0-hint">↓ &nbsp; défiler &nbsp; ↓</div>
+<!-- PAGE 0 : INTRO -->
+<div class="page active" data-i="0">
+  <div class="p0">
+    <div class="p0-rings">
+      <svg width="420" height="420" viewBox="0 0 420 420" fill="none" style="display:block;">
+        <circle cx="210" cy="210" r="200" stroke="rgba(200,164,90,0.05)" stroke-width="1" style="animation:spinCW 60s linear infinite;transform-origin:center;"/>
+        <circle cx="210" cy="210" r="170" stroke="rgba(200,164,90,0.04)" stroke-width="0.8" stroke-dasharray="6 5" style="animation:spinCCW 40s linear infinite;transform-origin:center;"/>
+        <circle cx="210" cy="210" r="138" stroke="rgba(200,164,90,0.06)" stroke-width="0.5" stroke-dasharray="2 8" style="animation:spinCW 25s linear infinite;transform-origin:center;"/>
+        <circle cx="210" cy="210" r="108" stroke="rgba(138,104,32,0.08)" stroke-width="0.5"/>
+      </svg>
     </div>
-  </div>
-
-  <!-- PAGE 1 : IDENTITÉ -->
-  <div class="page" data-pg="1">
-    <div class="p1-inner">
-      <div class="p1-left">
-        <canvas id="sand-visual" style="width:100%;height:100%;display:block;"></canvas>
-        <div class="p1-left-overlay"></div>
-        <div class="p1-left-label">
-          <div class="lbl">Support visuel</div>
-          <div class="val">Griff Sabaku</div>
-        </div>
-      </div>
-      <div class="p1-right">
-        <div class="p1-stat">
-          <div class="p1-lbl">Prénom</div>
-          <div class="p1-val">Griff</div>
-        </div>
-        <div class="p1-stat">
-          <div class="p1-lbl">Clan</div>
-          <div class="p1-val">Sabaku</div>
-        </div>
-        <div class="p1-stat">
-          <div class="p1-lbl">Village</div>
-          <div class="p1-val">Suna</div>
-        </div>
-        <div class="p1-stat">
-          <div class="p1-lbl">Rang</div>
-          <div class="p1-val">Genin</div>
-        </div>
-        <div class="p1-stat">
-          <div class="p1-lbl">Âge</div>
-          <div class="p1-val">14 ans</div>
-        </div>
-      </div>
+    <div class="p0-super">Candidature Whitelist — Naruto RP</div>
+    <div class="p0-name">
+      <span class="n1">Griff</span>
+      <span class="n2">Sabaku</span>
     </div>
-  </div>
-
-  <!-- PAGE 2 : HISTOIRE -->
-  <div class="page" data-pg="2">
-    <div class="p2-inner">
-      <div class="page-title"><span class="pnum">02</span>Histoire</div>
-      <div class="txt-body">
-        <p>Je suis né à <span class="hl">Sunagakure</span>, le village caché du sable. Grandir ici, c'est différent d'ailleurs. Le vent ne s'arrête jamais vraiment, le sable est partout, et la chaleur peut être écrasante. Mais pour moi, ça a toujours été normal. C'est tout ce que j'ai connu.</p>
-        <p>Je suis né dans le <span class="hl">clan Sabaku</span>, un clan ancien dont l'histoire est presque aussi vieille que le désert lui-même. Les autres tribus les appelaient Sabaku, ceux qui marchent dans le sable, ceux qui survivent là où les autres abandonnent.</p>
-        <p>Mon père disait toujours que le désert n'était pas seulement un endroit où vivre, mais quelque chose qu'il fallait comprendre. Pour les Sabaku, le sable n'est pas une simple technique ninja. C'est presque <span class="hl">instinctif</span>, comme respirer. Il disait que le sable écoute ceux qui savent rester calmes.</p>
-        <p>C'est aussi pendant mon enfance que j'ai entendu parler de <span class="hl">Shukaku</span> pour la première fois. Son nom revient souvent dans les récits anciens. Certains disent que nos ancêtres avaient un lien particulier avec lui.</p>
-        <p>J'ai vu de mes propres yeux la lance de l'enfant Sabaku, le premier réceptacle du démon du désert. Elle est conservée comme un symbole. Un rappel que le désert donne, mais qu'il peut aussi <span class="hl">reprendre</span>.</p>
-        <p>À l'académie, en tombant au sol, ma main s'est enfoncée dans le sable… et il a bougé. Presque rien. Mais le professeur l'a vu. Ce jour-là, j'ai compris ce que signifiait être un Sabaku.</p>
-        <div class="qb">Le sable a bougé. Un jour, moi aussi, je laisserai ma trace dans le désert.</div>
-      </div>
+    <div class="p0-sep"><div class="p0-diamond"></div></div>
+    <div class="p0-clan">Clan Sabaku · Suna · Genin</div>
+    <div class="p0-badges">
+      <div class="badge"><span>Suna</span></div>
+      <div class="badge"><span>Genin</span></div>
+      <div class="badge"><span>Clan Sabaku</span></div>
     </div>
+    <div class="p0-hint">↓ &nbsp; défiler &nbsp; ↓</div>
   </div>
-
-  <!-- PAGE 3 : APPARENCE -->
-  <div class="page" data-pg="3">
-    <div class="p3-inner">
-      <div class="page-title"><span class="pnum">03</span>Apparence</div>
-      <div class="txt-body">
-        <p>Griff Sabaku est un adolescent d'environ <span class="hl">quatorze ans</span>, à la silhouette encore en train de se construire. Sa carrure est fine et nerveuse, plus adaptée à l'agilité et à l'endurance qu'à la force brute.</p>
-        <p>Sa peau est légèrement craquelée par le soleil. Griff a grandi dans le Pays du Vent, il est donc habitué à la chaleur et aux longues journées passées dehors. On peut souvent voir quelques traces de sable ou de poussière sur ses vêtements, preuve qu'il passe beaucoup de temps à l'extérieur.</p>
-        <p>Griff a des cheveux <span class="hl">blond sable</span> plutôt clairs, souvent un peu en bataille sous les effets du vent constant. Un air naturel, décontracté et un peu sauvage, comme s'il préférait passer son temps à s'entraîner plutôt qu'à s'occuper de son apparence.</p>
-        <p>Ses yeux sont d'un <span class="hl">vert légèrement tirant vers le gris</span>, une couleur qui rappelle parfois celle des dunes quand le soleil commence à se coucher. Son regard est généralement calme et observateur. Griff parle peu quand il ne connaît pas bien les gens, préférant regarder et analyser ce qui se passe autour de lui avant d'agir.</p>
-        <div class="qb">Même s'il n'a pas encore l'aura impressionnante des grands shinobi de son clan, quelque chose dans sa posture rappelle déjà les Sabaku : une tranquillité silencieuse, comme s'il écoutait toujours le désert.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PAGE 4 : PERSONNALITÉ -->
-  <div class="page" data-pg="4">
-    <div class="p3-inner">
-      <div class="page-title"><span class="pnum">04</span>Personnalité</div>
-      <div class="txt-body">
-        <p>Griff Sabaku est quelqu'un de plutôt <span class="hl">calme et réfléchi</span> pour son âge. Ayant grandi dans le climat aride du désert et dans un clan qui valorise la patience et la maîtrise de soi, il a appris assez tôt à contrôler ses émotions.</p>
-        <p>Griff n'est pas du genre à agir sur un coup de tête. Avant chaque décision, il préfère observer et analyser la situation pour pouvoir réfléchir à comment agir en circonstance.</p>
-        <p>Même s'il peut paraître distant au premier abord, Griff n'est pas quelqu'un de froid. Au contraire, il a simplement du mal à faire confiance rapidement aux autres. Une fois qu'il considère quelqu'un comme un allié ou un ami, il devient <span class="hl">loyal</span> et est prêt à tout pour protéger les personnes qui lui sont importantes.</p>
-        <p>Comme la plupart des membres du clan Sabaku, Griff ressent un lien très fort avec le désert. Il apprécie les moments de solitude dans les dunes, où il peut réfléchir, s'entraîner ou simplement écouter le vent. Ces moments lui permettent de rester concentré et de garder l'esprit clair.</p>
-        <p>Malgré son calme extérieur, Griff possède aussi une grande <span class="hl">détermination</span>. Il sait que porter le nom Sabaku implique des responsabilités, et il ressent une lourde pression pour être à la hauteur de son clan. Cette volonté le pousse à s'entraîner régulièrement et à améliorer constamment son contrôle du sable.</p>
-        <p>Griff n'aime pas particulièrement les conflits inutiles. Il préfère résoudre les situations de manière intelligente plutôt que de foncer dans un combat. Mais si un affrontement devient inévitable, il n'hésitera pas à se battre avec sérieux.</p>
-        <div class="qb">Il ne cherche pas la gloire. Il souhaite surtout devenir un ninja fiable, capable de protéger Sunagakure et de faire honneur à l'héritage de sa famille.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PAGE 5 : OBJECTIFS -->
-  <div class="page" data-pg="5">
-    <div class="p3-inner">
-      <div class="page-title"><span class="pnum">05</span>Objectifs</div>
-      <div class="txt-body">
-        <p style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:#8a6820;text-transform:uppercase;margin-bottom:.5rem;">Court terme</p>
-        <p>Je veux <span class="hl">trouver des genin</span> avec qui m'entraîner régulièrement dans les dunes. Pas juste pendant les missions officielles, en dehors aussi. Des gens qui n'ont pas peur du soleil ni du sable, qui veulent apprendre à se battre dans le désert et à survivre quand le vent coupe la vision.</p>
-        <p>Je cherche aussi à <span class="hl">passer du temps avec les anciens du clan</span>. Ceux qui connaissent le désert depuis avant ma naissance. J'ai des questions sur le sable, sur Shukaku, sur ce que nos ancêtres ont laissé derrière eux.</p>
-        <p style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:#8a6820;text-transform:uppercase;margin-bottom:.5rem;margin-top:1.2rem;">Moyen terme</p>
-        <p>Il y a des endroits dans le désert que personne ne connaît vraiment. Des ruines, des routes oubliées, des zones que les cartes ne mentionnent pas. Je veux <span class="hl">organiser des expéditions</span> pour les trouver avec d'autres ninjas curieux qui veulent comprendre ce que le Pays du Vent cache encore.</p>
-        <p>Je veux aussi <span class="hl">proposer des entraînements entre clans différents</span>. Chacun reste avec les siens et ça me semble une erreur. On apprend mieux en se frottant à des gens qui combattent autrement que nous.</p>
-        <p style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:#8a6820;text-transform:uppercase;margin-bottom:.5rem;margin-top:1.2rem;">Long terme</p>
-        <p>Un jour, je veux être celui qu'on appelle quand une mission se passe dans le désert et que <span class="hl">personne d'autre ne connaît le terrain</span>. Pas pour la gloire. Juste parce que Sunagakure mérite des shinobi qui connaissent vraiment leur village jusqu'aux dunes les plus lointaines.</p>
-        <div class="qb">Porter le nom Sabaku c'est une dette envers le désert. Je compte bien la rembourser.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PAGE 6 : REMERCIEMENTS -->
-  <div class="page" data-pg="6">
-    <div class="p0-inner">
-      <div class="p0-ring">
-        <svg width="380" height="380" viewBox="0 0 380 380" fill="none">
-          <circle cx="190" cy="190" r="180" stroke="rgba(200,164,90,0.05)" stroke-width="1"/>
-          <circle cx="190" cy="190" r="155" stroke="rgba(200,164,90,0.04)" stroke-width="1" stroke-dasharray="5 4"/>
-          <circle cx="190" cy="190" r="125" stroke="rgba(200,164,90,0.07)" stroke-width="0.5" stroke-dasharray="2 6"/>
-        </svg>
-      </div>
-      <div class="p0-tag">Fin de candidature</div>
-      <div style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;-webkit-text-stroke:1px #c8a45a;color:transparent;line-height:1.1;letter-spacing:.05em;">
-        Merci pour<br>votre lecture
-      </div>
-      <div style="width:1px;height:50px;background:linear-gradient(to bottom,#8a6820,transparent);margin:.75rem auto;"></div>
-      <div style="font-family:'Crimson Text',serif;font-size:1rem;color:#7a6040;font-style:italic;max-width:380px;line-height:1.8;margin:0 auto;">
-        J'espère que ce dossier vous aura permis de mieux connaître Griff Sabaku et sa vision du monde ninja. Je suis pleinement investi dans ce personnage et dans l'univers du serveur. Ce serait un honneur de rejoindre le clan Sabaku.
-      </div>
-      <div style="width:1px;height:50px;background:linear-gradient(to bottom,transparent,#8a6820);margin:.75rem auto;"></div>
-      <div style="font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.3em;color:#5a4020;text-transform:uppercase;margin-top:.5rem;">
-        Griff Sabaku · Suna · Genin
-      </div>
-      <div class="badges" style="justify-content:center;margin-top:1.5rem;">
-        <div class="badge"><span>Suna</span></div>
-        <div class="badge"><span>Genin</span></div>
-        <div class="badge"><span>Clan Sabaku</span></div>
-      </div>
-    </div>
-  </div>
-
 </div>
 
+<!-- PAGE 1 : IDENTITÉ -->
+<div class="page" data-i="1">
+  <div class="p1">
+    <div class="p1-vis">
+      <canvas id="sv"></canvas>
+      <div class="p1-vis-over"></div>
+      <div class="p1-vis-lbl">
+        <div class="vl">Support visuel</div>
+        <div class="vv">Griff Sabaku</div>
+      </div>
+    </div>
+    <div class="p1-stats">
+      <div class="p1-stat"><div class="p1-lbl">Prénom</div><div class="p1-val">Griff</div></div>
+      <div class="p1-stat"><div class="p1-lbl">Clan</div><div class="p1-val">Sabaku</div></div>
+      <div class="p1-stat"><div class="p1-lbl">Village</div><div class="p1-val">Suna</div></div>
+      <div class="p1-stat"><div class="p1-lbl">Rang</div><div class="p1-val">Genin</div></div>
+      <div class="p1-stat"><div class="p1-lbl">Âge</div><div class="p1-val">14 ans</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 : HISTOIRE -->
+<div class="page" data-i="2">
+  <div class="pcont">
+    <div class="sec-hd">
+      <div class="sec-nn">02</div>
+      <div class="sec-tt">Histoire</div>
+    </div>
+    <div class="txt">
+      <p>Je suis né à <span class="hl">Sunagakure</span>, le village caché du sable. Grandir ici, c'est différent d'ailleurs. Le vent ne s'arrête jamais vraiment, le sable est partout, et la chaleur peut être écrasante. Mais pour moi, ça a toujours été normal. C'est tout ce que j'ai connu.</p>
+      <p>Je suis né dans le <span class="hl">clan Sabaku</span>, un clan ancien dont l'histoire est presque aussi vieille que le désert lui-même. Les autres tribus les appelaient Sabaku, ceux qui marchent dans le sable, ceux qui survivent là où les autres abandonnent.</p>
+      <p>Mon père disait toujours que le désert n'était pas seulement un endroit où vivre, mais quelque chose qu'il fallait comprendre. Pour les Sabaku, le sable n'est pas une simple technique ninja. C'est presque <span class="hl">instinctif</span>, comme respirer. Il disait que le sable écoute ceux qui savent rester calmes.</p>
+      <p>C'est aussi pendant mon enfance que j'ai entendu parler de <span class="hl">Shukaku</span> pour la première fois. Son nom revient souvent dans les récits anciens. Certains disent que nos ancêtres avaient un lien particulier avec lui.</p>
+      <p>J'ai vu de mes propres yeux la lance de l'enfant Sabaku, le premier réceptacle du démon du désert. Elle est conservée comme un symbole. Un rappel que le désert donne, mais qu'il peut aussi <span class="hl">reprendre</span>.</p>
+      <p>À l'académie, en tombant au sol, ma main s'est enfoncée dans le sable et il a bougé. Presque rien. Mais le professeur l'a vu. Ce jour-là, j'ai compris ce que signifiait être un Sabaku.</p>
+      <div class="qb">Le sable a bougé. Un jour, moi aussi, je laisserai ma trace dans le désert.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3 : APPARENCE -->
+<div class="page" data-i="3">
+  <div class="pcont">
+    <div class="sec-hd">
+      <div class="sec-nn">03</div>
+      <div class="sec-tt">Apparence</div>
+    </div>
+    <div class="txt">
+      <p>Griff Sabaku est un adolescent d'environ <span class="hl">quatorze ans</span>, à la silhouette encore en train de se construire. Sa carrure est fine et nerveuse, plus adaptée à l'agilité et à l'endurance qu'à la force brute.</p>
+      <p>Sa peau est légèrement craquelée par le soleil. Griff a grandi dans le Pays du Vent, il est donc habitué à la chaleur et aux longues journées passées dehors. On peut souvent voir quelques traces de sable ou de poussière sur ses vêtements, preuve qu'il passe beaucoup de temps à l'extérieur.</p>
+      <p>Griff a des cheveux <span class="hl">blond sable</span> plutôt clairs, souvent un peu en bataille sous les effets du vent constant. Un air naturel, décontracté et un peu sauvage, comme s'il préférait passer son temps à s'entraîner plutôt qu'à s'occuper de son apparence.</p>
+      <p>Ses yeux sont d'un <span class="hl">vert légèrement tirant vers le gris</span>, une couleur qui rappelle parfois celle des dunes quand le soleil commence à se coucher. Son regard est généralement calme et observateur. Griff parle peu quand il ne connaît pas bien les gens, préférant regarder et analyser ce qui se passe autour de lui avant d'agir.</p>
+      <div class="qb">Même s'il n'a pas encore l'aura impressionnante des grands shinobi de son clan, quelque chose dans sa posture rappelle déjà les Sabaku : une tranquillité silencieuse, comme s'il écoutait toujours le désert.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4 : PERSONNALITÉ -->
+<div class="page" data-i="4">
+  <div class="pcont">
+    <div class="sec-hd">
+      <div class="sec-nn">04</div>
+      <div class="sec-tt">Personnalité</div>
+    </div>
+    <div class="txt">
+      <p>Griff Sabaku est quelqu'un de plutôt <span class="hl">calme et réfléchi</span> pour son âge. Ayant grandi dans le climat aride du désert et dans un clan qui valorise la patience et la maîtrise de soi, il a appris assez tôt à contrôler ses émotions.</p>
+      <p>Griff n'est pas du genre à agir sur un coup de tête. Avant chaque décision, il préfère observer et analyser la situation pour pouvoir réfléchir à comment agir en circonstance.</p>
+      <p>Même s'il peut paraître distant au premier abord, Griff n'est pas quelqu'un de froid. Au contraire, il a simplement du mal à faire confiance rapidement aux autres. Une fois qu'il considère quelqu'un comme un allié ou un ami, il devient <span class="hl">loyal</span> et est prêt à tout pour protéger les personnes qui lui sont importantes.</p>
+      <p>Comme la plupart des membres du clan Sabaku, Griff ressent un lien très fort avec le désert. Il aime la solitude du désert, là où il peut réfléchir, s'entraîner ou simplement écouter le vent. Ces moments lui permettent de rester concentré.</p>
+      <p>Griff a un calme extraordinaire, mais aussi une <span class="hl">détermination hors norme</span>. Il sait que porter le nom Sabaku implique de nombreuses responsabilités. Il ressent une pression pour être à la hauteur de son clan. Cette volonté le pousse jour après jour à s'entraîner régulièrement et à s'améliorer constamment.</p>
+      <p>Griff n'aime pas les conflits inutiles. Il préfère résoudre les situations de manière intelligente. Mais si un affrontement devient inévitable, il n'hésitera pas à se battre pour son village.</p>
+      <div class="qb">Il ne cherche pas la gloire. Il souhaite surtout devenir un ninja fiable, capable de protéger Sunagakure et de faire honneur à l'héritage de sa famille.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5 : OBJECTIFS -->
+<div class="page" data-i="5">
+  <div class="pcont">
+    <div class="sec-hd">
+      <div class="sec-nn">05</div>
+      <div class="sec-tt">Objectifs</div>
+    </div>
+    <div class="txt">
+      <p class="obj-tt">Court terme</p>
+      <p>Je veux <span class="hl">trouver des genin</span> avec qui m'entraîner régulièrement dans les dunes. Pas juste pendant les missions officielles, en dehors aussi. Des gens qui n'ont pas peur du soleil ni du sable, qui veulent apprendre à se battre dans le désert et à survivre quand le vent coupe la vision.</p>
+      <p>Je cherche aussi à <span class="hl">passer du temps avec les anciens du clan</span>. Ceux qui connaissent le désert depuis avant ma naissance. J'ai des questions sur le sable, sur Shukaku, sur ce que nos ancêtres ont laissé derrière eux.</p>
+      <p class="obj-tt">Moyen terme</p>
+      <p>Il y a des endroits dans le désert que personne ne connaît vraiment. Des ruines, des routes oubliées, des zones que les cartes ne mentionnent pas. Je veux <span class="hl">organiser des expéditions</span> pour les trouver avec d'autres ninjas curieux qui veulent comprendre ce que le Pays du Vent cache encore.</p>
+      <p>Je veux aussi <span class="hl">proposer des entraînements entre clans différents</span>. Chacun reste avec les siens et ça me semble une erreur. On apprend mieux en se frottant à des gens qui combattent autrement que nous.</p>
+      <p class="obj-tt">Long terme</p>
+      <p>Un jour, je veux être celui qu'on appelle quand une mission se passe dans le désert et que <span class="hl">personne d'autre ne connaît le terrain</span>. Pas pour la gloire. Juste parce que Sunagakure mérite des shinobi qui connaissent vraiment leur village jusqu'aux dunes les plus lointaines.</p>
+      <div class="qb">Porter le nom Sabaku c'est une dette envers le désert. Je compte bien la rembourser.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6 : MOTIVATION -->
+<div class="page" data-i="6">
+  <div class="pcont">
+    <div class="sec-hd">
+      <div class="sec-nn">06</div>
+      <div class="sec-tt">Motivation</div>
+    </div>
+    <div class="txt">
+      <p>Je voudrais avoir la possibilité de rejoindre le <span class="hl">clan Sabaku</span> parce que j'aime beaucoup le lore du clan, il est attractif et je souhaite le développer un maximum. Le fait que le clan soit lié au sable et à l'environnement particulier qu'est le désert de Sunagakure apporte beaucoup de possibilités en RP, que ce soit dans la manière de combattre, de s'entraîner ou simplement dans la façon dont les joueurs vivent et interagissent avec le désert.</p>
+      <p>Je trouve aussi intéressant tout ce qui touche à <span class="hl">l'histoire du clan</span>. Je la trouve unique, avec une bonne capacité de RP autour des liens qu'il peut avoir avec certaines légendes du désert. C'est un type de lore qui donne envie de développer du RP autour de la découverte, de la transmission et de la culture du clan.</p>
+      <p>Rejoindre le clan me permettrait aussi d'avoir plus <span class="hl">d'interactions RP</span> avec d'autres joueurs qui partagent le même cadre de jeu. Le fait d'appartenir à un clan crée plus facilement des scènes communes, des entraînements ou des discussions autour du lore et de l'histoire du clan.</p>
+      <p>Mon objectif est surtout de <span class="hl">m'investir dans le RP du clan sur la durée</span>. Je ne suis pas fait pour le PvP mais pour le RP. Je veux faire évoluer mon personnage avec les autres joueurs et contribuer à créer des scènes et des histoires intéressantes pour le clan et pour le village.</p>
+      <div class="qb">Le sable n'oublie rien. Moi non plus.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 7 : POURQUOI MOI -->
+<div class="page" data-i="7">
+  <div class="pcont">
+    <div class="sec-hd">
+      <div class="sec-nn">07</div>
+      <div class="sec-tt">Pourquoi moi</div>
+    </div>
+    <div class="txt">
+      <p>Je pense pouvoir apporter quelqu'un de <span class="hl">motivé</span> qui a envie de faire vivre le RP du clan. Je veux avoir l'opportunité de créer des scènes avec les joueurs, que ce soit des entraînements, des discussions ou des missions dans le Pays du Vent. Mon but est surtout de ne pas jouer dans mon coin et de proposer du jeu aux autres membres.</p>
+      <p>Je peux aussi apporter de <span class="hl">l'activité</span>. J'essaie généralement d'être présent et de lancer du RP quand l'occasion se présente, que ce soit avec des membres du clan ou avec d'autres joueurs du village. J'aime l'idée de créer des interactions régulières pour que le clan reste vivant.</p>
+      <p>Enfin, j'ai envie de développer du RP autour du <span class="hl">désert et de l'exploration</span>. Si possible, je voudrais contribuer à créer une dynamique basée sur l'exploration du désert et sa compréhension. Organiser des sorties dans les dunes à la recherche de lieux oubliés ou simplement créer des scènes autour de la vie dans cet environnement peut apporter du contenu intéressant pour le clan et pour les joueurs qui veulent y participer.</p>
+      <div class="qb">Le désert choisit ceux qui méritent de rester.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 8 : MERCI -->
+<div class="page" data-i="8">
+    <div class="p0-rings" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">
+      <svg width="380" height="380" viewBox="0 0 380 380" fill="none">
+        <circle cx="190" cy="190" r="178" stroke="rgba(200,164,90,0.06)" stroke-width="1" style="animation:spinCCW 50s linear infinite;transform-origin:center;"/>
+        <circle cx="190" cy="190" r="148" stroke="rgba(200,164,90,0.04)" stroke-width=".8" stroke-dasharray="5 5" style="animation:spinCW 35s linear infinite;transform-origin:center;"/>
+        <circle cx="190" cy="190" r="115" stroke="rgba(138,104,32,0.07)" stroke-width=".5" stroke-dasharray="2 7"/>
+      </svg>
+    </div>
+    <div class="p0-super">Fin de candidature</div>
+    <div style="font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:700;-webkit-text-stroke:1px var(--s);color:transparent;line-height:1.15;letter-spacing:.04em;">
+      Merci pour<br>votre lecture
+    </div>
+    <div class="p0-sep"><div class="p0-diamond"></div></div>
+    <div style="font-family:'Crimson Text',serif;font-size:1rem;color:var(--mu);font-style:italic;max-width:380px;line-height:1.85;margin:0 auto;">
+      J'espère que ce dossier vous aura permis de mieux connaître Griff Sabaku et sa vision du monde ninja. Je suis pleinement investi dans ce personnage et dans l'univers du serveur. Ce serait un honneur de rejoindre le clan Sabaku.
+    </div>
+    <div class="p0-sep" style="margin-top:1.5rem;"><div class="p0-diamond"></div></div>
+    <div style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.35em;color:var(--mu);text-transform:uppercase;">
+      Griff Sabaku · Suna · Genin
+    </div>
+    <div class="p0-badges" style="margin-top:1.25rem;">
+      <div class="badge"><span>Suna</span></div>
+      <div class="badge"><span>Genin</span></div>
+      <div class="badge"><span>Clan Sabaku</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /pages -->
+
 <script>
-/* ── CURSOR ── */
-const cur=document.getElementById('cur'), cur2=document.getElementById('cur2');
+/* CURSOR */
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function loopC(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cur2.style.left=rx+'px';cur2.style.top=ry+'px';requestAnimationFrame(loopC);})();
-document.querySelectorAll('.badge,.p1-stat,.nav-arrow,.tnav').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur2.style.width='52px';cur2.style.height='52px';cur2.style.borderColor='rgba(200,164,90,.7)';});
-  el.addEventListener('mouseleave',()=>{cur2.style.width='36px';cur2.style.height='36px';cur2.style.borderColor='rgba(200,164,90,.35)';});
+(function lc(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cur2.style.left=rx+'px';cur2.style.top=ry+'px';requestAnimationFrame(lc);})();
+document.querySelectorAll('.badge,.p1-stat,.nav-arr,.tnav').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur2.style.width='48px';cur2.style.height='48px';cur2.style.borderColor='rgba(200,164,90,.8)';});
+  el.addEventListener('mouseleave',()=>{cur2.style.width='28px';cur2.style.height='28px';cur2.style.borderColor='rgba(200,164,90,.4)';});
 });
 
-/* ── BG CANVAS ── */
-const cv=document.getElementById('bgc'), cx2=cv.getContext('2d');
-let W,H,pts=[],streaks=[],embers=[],ft=0;
-function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;initStreaks();}
-
-function mp(){
-  return{
-    x:Math.random()<.3?-5:Math.random()*W,
-    y:Math.random()*H,
-    r:Math.random()*2.2+.2,
-    vx:Math.random()*2+.5,
-    vy:(Math.random()-.5)*.6,
-    wave:Math.random()*Math.PI*2,
-    waveAmp:Math.random()*10+3,
-    waveFreq:Math.random()*.04+.008,
-    a:Math.random()*.6+.08,
-    life:Math.random()*500+250,
-    age:Math.random()*400,
-    col:['#c8a45a','#e8c97a','#8a6820','#a07030','#d4a060','#f0d090','#c09040','#e0b870'][Math.floor(Math.random()*8)]
-  };
-}
-
-function mkStreak(){
-  return{
-    x:Math.random()*W, y:Math.random()*H,
-    len:Math.random()*200+60,
-    speed:Math.random()*5+2,
-    a:Math.random()*.18+.04,
-    width:Math.random()*1.2+.2,
-    vy:(Math.random()-.5)*.5,
-    curve:Math.random()*.4-.2
-  };
-}
-
-function mkEmber(){
-  return{
-    x:Math.random()*W, y:H+5,
-    vx:(Math.random()-.5)*1.5,
-    vy:-(Math.random()*1.5+.5),
-    r:Math.random()*1.5+.3,
-    a:Math.random()*.7+.2,
-    life:Math.random()*300+150,
-    age:0,
-    col:Math.random()>.5?'#e8c97a':'#c8a45a'
-  };
-}
-
-function initStreaks(){
-  streaks=[];
-  for(let i=0;i<28;i++) streaks.push(mkStreak());
-  embers=[];
-  for(let i=0;i<60;i++){const e=mkEmber();e.age=Math.random()*e.life;embers.push(e);}
-}
-
-for(let i=0;i<500;i++) pts.push(mp());
-
-const vortices=[
-  {x:.15,y:.35,r:110,speed:.006,a:.04,phase:0},
-  {x:.85,y:.55,r:90,speed:.008,a:.03,phase:2},
-  {x:.5,y:.2,r:70,speed:.01,a:.025,phase:4},
-  {x:.3,y:.7,r:60,speed:.007,a:.02,phase:1},
-];
-
-function drawDunes(){
-  for(let i=0;i<9;i++){
-    const by=H*(.12+i*.11);
-    const amp=10+i*13;
-    const freq=.0012+i*.0005;
-    const spd=.00015+i*.00006;
-    cx2.beginPath();cx2.moveTo(0,H);
-    for(let x=0;x<=W;x+=3){
-      const y=by
-        +Math.sin(x*freq+ft*spd)*amp
-        +Math.sin(x*freq*2.7+ft*spd*1.6)*amp*.45
-        +Math.sin(x*freq*.4+ft*spd*.5)*amp*.25
-        +Math.cos(x*freq*4+ft*spd*2.3)*amp*.1;
-      cx2.lineTo(x,y);
-    }
-    cx2.lineTo(W,H);cx2.closePath();
-    const r=145+i*5,g=88+i*4,b=18+i*3,al=.01+i*.009;
-    cx2.fillStyle=`rgba(${r},${g},${b},${al})`;cx2.fill();
-
-    /* reflet lumineux sur la crête */
-    if(i%2===0){
-      cx2.beginPath();cx2.moveTo(0,H);
-      for(let x=0;x<=W;x+=3){
-        const y=by+Math.sin(x*freq+ft*spd)*amp+Math.sin(x*freq*2.7+ft*spd*1.6)*amp*.45+Math.sin(x*freq*.4+ft*spd*.5)*amp*.25;
-        cx2.lineTo(x,y);
-      }
-      cx2.strokeStyle=`rgba(220,180,80,${.03+i*.004})`;cx2.lineWidth=1;cx2.stroke();
-    }
-  }
-}
-
-function drawVortices(){
-  vortices.forEach(v=>{
-    v.phase+=v.speed;
-    const cx=v.x*W+Math.sin(ft*.002)*30, cy=v.y*H+Math.cos(ft*.0015)*20;
-    for(let ring=0;ring<6;ring++){
-      const r=v.r*(ring+1)*.28;
-      const angle=v.phase+ring*.9;
-      const sweep=Math.PI*(1.4-ring*.1);
-      cx2.beginPath();
-      cx2.arc(cx,cy,r,angle,angle+sweep);
-      cx2.strokeStyle=`rgba(200,160,70,${v.a*(1-ring*.15)})`;
-      cx2.lineWidth=.6;cx2.stroke();
-
-      /* petites particules sur l'arc */
-      if(ring===0&&Math.random()>.7){
-        const px=cx+Math.cos(angle+sweep)*r;
-        const py=cy+Math.sin(angle+sweep)*r;
-        cx2.beginPath();cx2.arc(px,py,1,0,Math.PI*2);
-        cx2.fillStyle=`rgba(232,201,122,${v.a*2})`;cx2.fill();
-      }
-    }
-  });
-}
-
-function drawStreaks(){
-  for(let i=0;i<streaks.length;i++){
-    const s=streaks[i];
-    s.x+=s.speed;
-    s.y+=s.vy+Math.sin(ft*.02+i)*.3;
-    if(s.x>W+s.len){Object.assign(s,mkStreak());s.x=-s.len;}
-    const ex=s.x+Math.sin(ft*.015)*s.curve*s.len;
-    const grad=cx2.createLinearGradient(s.x-s.len,s.y,ex,s.y);
-    grad.addColorStop(0,'rgba(200,164,90,0)');
-    grad.addColorStop(.7,`rgba(220,180,90,${s.a*.6})`);
-    grad.addColorStop(1,`rgba(240,200,100,${s.a})`);
-    cx2.beginPath();cx2.moveTo(s.x-s.len,s.y);cx2.quadraticCurveTo(s.x-s.len*.5,s.y+s.curve*20,ex,s.y);
-    cx2.strokeStyle=grad;cx2.lineWidth=s.width;cx2.stroke();
-  }
-}
-
-function drawEmbers(){
-  for(let i=0;i<embers.length;i++){
-    const e=embers[i];
-    e.x+=e.vx+Math.sin(ft*.03+i)*.4;
-    e.y+=e.vy;e.age++;
-    const pr=e.age/e.life;
-    const fd=pr<.1?pr/.1:pr>.7?(1-pr)/.3:1;
-    cx2.beginPath();cx2.arc(e.x,e.y,e.r,0,Math.PI*2);
-    cx2.fillStyle=e.col;cx2.globalAlpha=e.a*fd;cx2.fill();cx2.globalAlpha=1;
-    if(e.age>=e.life||e.y<-10){Object.assign(e,mkEmber());}
-  }
-}
+/* BG CANVAS */
+const cv=document.getElementById('bgc'),cx=cv.getContext('2d');
+let W,H,pts=[],stk=[],emb=[],ft=0;
+function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;buildStk();}
+function mp(){return{x:Math.random()<.25?-3:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.2,vx:Math.random()*1.8+.4,vy:(Math.random()-.5)*.5,wv:Math.random()*Math.PI*2,wf:Math.random()*.04+.008,wa:Math.random()*9+2,a:Math.random()*.55+.06,life:Math.random()*550+250,age:Math.random()*450,col:['#c8a45a','#e8c97a','#8a6820','#a07030','#d4a060','#f0c870','#c09040'][Math.floor(Math.random()*7)]};}
+function mkS(){return{x:Math.random()*W,y:Math.random()*H,len:Math.random()*180+50,spd:Math.random()*5+2,a:Math.random()*.16+.04,w:Math.random()*1+.2,vy:(Math.random()-.5)*.4};}
+function mkE(){return{x:Math.random()*W,y:H+3,vx:(Math.random()-.5)*1.2,vy:-(Math.random()*1.2+.4),r:Math.random()*1.4+.3,a:Math.random()*.65+.2,life:Math.random()*280+120,age:0,col:Math.random()>.5?'#e8c97a':'#c8a45a'};}
+function buildStk(){stk=[];for(let i=0;i<30;i++)stk.push(mkS());emb=[];for(let i=0;i<70;i++){const e=mkE();e.age=Math.random()*e.life;emb.push(e);}}
+for(let i=0;i<500;i++)pts.push(mp());
+const vtx=[{x:.12,y:.3,r:120,sp:.005,a:.04,ph:0},{x:.88,y:.5,r:95,sp:.007,a:.03,ph:2.1},{x:.5,y:.18,r:75,sp:.009,a:.025,ph:4.2},{x:.3,y:.72,r:65,sp:.006,a:.02,ph:1.5}];
 
 function drawBg(){
-  cx2.clearRect(0,0,W,H);ft++;
-
-  drawDunes();
-  drawVortices();
-  drawStreaks();
-
-  /* Particules de sable */
-  for(let i=0;i<pts.length;i++){
-    const p=pts[i];
-    p.x+=p.vx;
-    p.y+=p.vy+Math.sin(ft*p.waveFreq+p.wave)*p.waveAmp*.1;
-    p.age++;
-    const pr=p.age/p.life;
-    const fd=pr<.1?pr/.1:pr>.8?(1-pr)/.2:1;
-    cx2.beginPath();
-    cx2.ellipse(p.x,p.y,p.r,p.r*.45,.35,0,Math.PI*2);
-    cx2.fillStyle=p.col;cx2.globalAlpha=p.a*fd;cx2.fill();cx2.globalAlpha=1;
-    if(p.age>=p.life||p.x>W+10) pts[i]=mp();
+  cx.clearRect(0,0,W,H);ft++;
+  /* dunes */
+  for(let i=0;i<10;i++){
+    const by=H*(.08+i*.11),amp=8+i*12,freq=.001+i*.0005,spd=.00012+i*.00005;
+    cx.beginPath();cx.moveTo(0,H);
+    for(let x=0;x<=W;x+=3){
+      const y=by+Math.sin(x*freq+ft*spd)*amp+Math.sin(x*freq*2.6+ft*spd*1.7)*amp*.45+Math.cos(x*freq*4.2+ft*spd*2.4)*amp*.12;
+      cx.lineTo(x,y);
+    }
+    cx.lineTo(W,H);cx.closePath();
+    cx.fillStyle=`rgba(${148+i*5},${86+i*4},${16+i*3},${.008+i*.009})`;cx.fill();
+    if(i%3===0){cx.strokeStyle=`rgba(220,175,75,${.025+i*.005})`;cx.lineWidth=.7;cx.stroke();}
   }
-
-  drawEmbers();
-
-  /* Lueur souris intense */
-  if(mx>0){
-    const g=cx2.createRadialGradient(mx,my,0,mx,my,320);
-    g.addColorStop(0,'rgba(210,140,40,.09)');
-    g.addColorStop(.4,'rgba(170,100,20,.04)');
-    g.addColorStop(1,'rgba(0,0,0,0)');
-    cx2.fillStyle=g;cx2.fillRect(0,0,W,H);
-  }
-
-  /* Pulsation ambiante */
-  const pulse=Math.sin(ft*.008)*.5+.5;
-  const gAmb=cx2.createRadialGradient(W*.5,H*.5,0,W*.5,H*.5,W*.6);
-  gAmb.addColorStop(0,`rgba(180,110,20,${.02*pulse})`);
-  gAmb.addColorStop(1,'rgba(0,0,0,0)');
-  cx2.fillStyle=gAmb;cx2.fillRect(0,0,W,H);
-
+  /* tourbillons */
+  vtx.forEach(v=>{
+    v.ph+=v.sp;
+    const vx2=v.x*W+Math.sin(ft*.0018)*25,vy2=v.y*H+Math.cos(ft*.0014)*18;
+    for(let r=0;r<7;r++){
+      const rad=v.r*(r+1)*.22,ang=v.ph+r*.8;
+      cx.beginPath();cx.arc(vx2,vy2,rad,ang,ang+Math.PI*1.3);
+      cx.strokeStyle=`rgba(200,158,68,${v.a*(1-r*.13)})`;cx.lineWidth=.55;cx.stroke();
+      if(r===0&&Math.random()>.75){const px=vx2+Math.cos(ang+Math.PI*1.3)*rad,py=vy2+Math.sin(ang+Math.PI*1.3)*rad;cx.beginPath();cx.arc(px,py,.9,0,Math.PI*2);cx.fillStyle=`rgba(232,201,122,${v.a*2.5})`;cx.fill();}
+    }
+  });
+  /* traînées */
+  stk.forEach(s=>{
+    s.x+=s.spd;s.y+=s.vy+Math.sin(ft*.018+s.spd)*.25;
+    if(s.x>W+s.len){Object.assign(s,mkS());s.x=-s.len;}
+    const g2=cx.createLinearGradient(s.x-s.len,s.y,s.x,s.y);
+    g2.addColorStop(0,'rgba(200,164,90,0)');g2.addColorStop(.65,`rgba(218,178,88,${s.a*.6})`);g2.addColorStop(1,`rgba(238,196,100,${s.a})`);
+    cx.beginPath();cx.moveTo(s.x-s.len,s.y);cx.lineTo(s.x,s.y);
+    cx.strokeStyle=g2;cx.lineWidth=s.w;cx.stroke();
+  });
+  /* particules */
+  pts.forEach((p,i)=>{
+    p.x+=p.vx;p.y+=p.vy+Math.sin(ft*p.wf+p.wv)*p.wa*.09;p.age++;
+    const pr=p.age/p.life,fd=pr<.1?pr/.1:pr>.8?(1-pr)/.2:1;
+    cx.beginPath();cx.ellipse(p.x,p.y,p.r,p.r*.42,.32,0,Math.PI*2);
+    cx.fillStyle=p.col;cx.globalAlpha=p.a*fd;cx.fill();cx.globalAlpha=1;
+    if(p.age>=p.life||p.x>W+10)pts[i]=mp();
+  });
+  /* braises */
+  emb.forEach((e,i)=>{
+    e.x+=e.vx+Math.sin(ft*.028+i)*.35;e.y+=e.vy;e.age++;
+    const pr=e.age/e.life,fd=pr<.1?pr/.1:pr>.65?(1-pr)/.35:1;
+    cx.beginPath();cx.arc(e.x,e.y,e.r,0,Math.PI*2);
+    cx.fillStyle=e.col;cx.globalAlpha=e.a*fd;cx.fill();cx.globalAlpha=1;
+    if(e.age>=e.life||e.y<-10)emb[i]=mkE();
+  });
+  /* lueur souris */
+  if(mx>0){const g3=cx.createRadialGradient(mx,my,0,mx,my,300);g3.addColorStop(0,'rgba(210,138,38,.08)');g3.addColorStop(.45,'rgba(160,95,18,.035)');g3.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g3;cx.fillRect(0,0,W,H);}
+  /* pulsation */
+  const pu=Math.sin(ft*.007)*.5+.5;
+  const gp=cx.createRadialGradient(W*.5,H*.5,0,W*.5,H*.5,W*.55);
+  gp.addColorStop(0,`rgba(175,105,18,${.022*pu})`);gp.addColorStop(1,'rgba(0,0,0,0)');
+  cx.fillStyle=gp;cx.fillRect(0,0,W,H);
   requestAnimationFrame(drawBg);
 }
 window.addEventListener('resize',rsz);rsz();drawBg();
 
-/* ── SOUND ── */
-let actx=null;
-function gctx(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx;}
-function playWood(freq=130,vol=.1,dur=.3){
-  try {
-    const c=gctx();
+/* SYMBOLE SABAKU */
+const sv=document.getElementById('sv');
+if(sv){
+  const sc=sv.getContext('2d');let st=0;
+  sv._pt=Array.from({length:40},()=>({x:Math.random(),y:Math.random(),vx:Math.random()*.35+.08,vy:(Math.random()-.5)*.15,r:Math.random()*.7+.2,a:Math.random()*.3+.05,col:['#c8a45a','#e8c97a','#8a6820'][Math.floor(Math.random()*3)]}));
+  function drawSV(){
+    const sw=sv.offsetWidth,sh=sv.offsetHeight;
+    if(sv.width!==sw||sv.height!==sh){sv.width=sw;sv.height=sh;}
+    sc.clearRect(0,0,sw,sh);sc.fillStyle='#060301';sc.fillRect(0,0,sw,sh);st+=.35;
+    const ccx=sw/2,ccy=sh/2,base=Math.min(sw,sh)*.36,pu=Math.sin(st*.022)*.04+1;
+    const bg=sc.createRadialGradient(ccx,ccy,0,ccx,ccy,base*1.7);
+    bg.addColorStop(0,'rgba(175,105,20,.1)');bg.addColorStop(1,'rgba(0,0,0,0)');
+    sc.fillStyle=bg;sc.fillRect(0,0,sw,sh);
+    /* cercles */
+    sc.save();sc.translate(ccx,ccy);sc.rotate(st*.0035);
+    sc.beginPath();sc.arc(0,0,base*1.32*pu,0,Math.PI*2);sc.setLineDash([4,7]);sc.strokeStyle='rgba(138,104,32,.32)';sc.lineWidth=.9;sc.stroke();sc.setLineDash([]);sc.restore();
+    sc.save();sc.translate(ccx,ccy);sc.rotate(-st*.005);
+    sc.beginPath();sc.arc(0,0,base*1.1*pu,0,Math.PI*2);sc.setLineDash([2,9]);sc.strokeStyle='rgba(200,164,90,.22)';sc.lineWidth=.7;sc.stroke();sc.setLineDash([]);sc.restore();
+    sc.beginPath();sc.arc(ccx,ccy,base*.82,0,Math.PI*2);sc.strokeStyle=`rgba(200,164,90,${.15+Math.sin(st*.028)*.05})`;sc.lineWidth=.9;sc.stroke();
+    /* étoile */
+    sc.save();sc.translate(ccx,ccy);sc.rotate(st*.0045-Math.PI/2);
+    sc.beginPath();
+    for(let i=0;i<5;i++){const a1=i*Math.PI*2/5,a2=(i+.5)*Math.PI*2/5;const ox=Math.cos(a1)*base*.72*pu,oy=Math.sin(a1)*base*.72*pu,ix=Math.cos(a2)*base*.3*pu,iy=Math.sin(a2)*base*.3*pu;i===0?sc.moveTo(ox,oy):sc.lineTo(ox,oy);sc.lineTo(ix,iy);}
+    sc.closePath();sc.strokeStyle=`rgba(200,164,90,${.42+Math.sin(st*.02)*.1})`;sc.lineWidth=1.1;sc.stroke();sc.fillStyle=`rgba(200,164,90,${.05+Math.sin(st*.02)*.02})`;sc.fill();sc.restore();
+    /* croissant */
+    sc.save();sc.translate(ccx,ccy+base*.08);sc.beginPath();sc.arc(0,0,base*.17*pu,Math.PI*.2,Math.PI*.8);sc.strokeStyle=`rgba(232,201,122,${.45+Math.sin(st*.022)*.12})`;sc.lineWidth=1.4;sc.stroke();sc.restore();
+    /* point */
+    const gl=sc.createRadialGradient(ccx,ccy,0,ccx,ccy,base*.1);
+    gl.addColorStop(0,`rgba(245,215,125,${.75+Math.sin(st*.04)*.25})`);gl.addColorStop(1,'rgba(0,0,0,0)');
+    sc.beginPath();sc.arc(ccx,ccy,base*.1,0,Math.PI*2);sc.fillStyle=gl;sc.fill();
+    /* orbites */
+    for(let i=0;i<8;i++){const a=st*.014+i*Math.PI*2/8,r=base*1.32,px=ccx+Math.cos(a)*r,py=ccy+Math.sin(a)*r;sc.beginPath();sc.arc(px,py,1.1,0,Math.PI*2);sc.fillStyle=`rgba(200,164,90,${.12+Math.sin(st*.04+i)*.08})`;sc.fill();}
+    /* particules */
+    sv._pt.forEach(p=>{p.x+=p.vx/sw;if(p.x>1.02)p.x=-0.02;sc.beginPath();sc.arc(p.x*sw,p.y*sh,p.r,0,Math.PI*2);sc.fillStyle=p.col;sc.globalAlpha=p.a;sc.fill();sc.globalAlpha=1;});
+    requestAnimationFrame(drawSV);
+  }
+  drawSV();
+}
+
+/* PAGES */
+const pgs=document.querySelectorAll('.page');
+const TOT=pgs.length;
+let cur3=0,anim=false;
+const NAMES=['Intro','Identité','Histoire','Apparence','Personnalité','Objectifs','Motivation','Pourquoi moi','Merci'];
+const nav=document.getElementById('topnav');
+NAMES.forEach((n,i)=>{
+  if(i>0){const s=document.createElement('div');s.className='tnav-sep';nav.appendChild(s);}
+  const t=document.createElement('div');t.className='tnav'+(i===0?' on':'');t.textContent=n;t.onclick=()=>gt(i);nav.appendChild(t);
+});
+document.getElementById('tpg').textContent=String(TOT).padStart(2,'0');
+
+function gt(n){
+  if(n<0||n>=TOT||n===cur3||anim)return;
+  anim=true;const dir=n>cur3?1:-1,prev=cur3;
+  pgs[prev].classList.remove('active');pgs[prev].classList.add(dir>0?'exit-up':'exit-dn');
+  cur3=n;pgs[cur3].classList.add('active');
+  document.querySelectorAll('.tnav').forEach((d,i)=>d.classList.toggle('on',i===cur3));
+  const cp=document.getElementById('cpg');if(cp)cp.textContent=String(cur3+1).padStart(2,'0');
+  pw(cur3%2===0?140:110,.08,.35);
+  setTimeout(()=>{pgs[prev].classList.remove('exit-up','exit-dn');anim=false;},750);
+}
+function go(d){gt(cur3+d);}
+
+let ls=0;
+window.addEventListener('wheel',e=>{const n=Date.now();if(n-ls<950)return;ls=n;go(e.deltaY>0?1:-1);},{passive:true});
+let ty=0;
+window.addEventListener('touchstart',e=>{if(e.touches.length)ty=e.touches[0].clientY;},{passive:true});
+window.addEventListener('touchend',e=>{const n=Date.now();if(n-ls<950||!e.changedTouches.length)return;ls=n;const dy=ty-e.changedTouches[0].clientY;if(Math.abs(dy)>40)go(dy>0?1:-1);},{passive:true});
+window.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowRight')go(1);if(e.key==='ArrowUp'||e.key==='ArrowLeft')go(-1);});
+
+/* SOUND */
+let ax=null;
+function gc(){if(!ax)ax=new(window.AudioContext||window.webkitAudioContext)();return ax;}
+function pw(freq=130,vol=.1,dur=.3){
+  try{const c=gc();
     const o=c.createOscillator(),g=c.createGain();
-    o.type='sine';o.frequency.setValueAtTime(freq,c.currentTime);
-    o.frequency.exponentialRampToValueAtTime(Math.max(freq*.35,20),c.currentTime+dur);
+    o.type='sine';o.frequency.setValueAtTime(freq,c.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(freq*.35,20),c.currentTime+dur);
     g.gain.setValueAtTime(vol,c.currentTime);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+dur);
     o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+dur);
     const buf=c.createBuffer(1,Math.floor(c.sampleRate*.012),c.sampleRate);
@@ -545,189 +555,10 @@ function playWood(freq=130,vol=.1,dur=.3){
     const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=900;f.Q.value=2;
     const gs=c.createGain();gs.gain.setValueAtTime(vol*.35,c.currentTime);gs.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.012);
     s.connect(f);f.connect(gs);gs.connect(c.destination);s.start();s.stop(c.currentTime+.012);
-  } catch(e){}
+  }catch(e){}
 }
-
-/* ── PAGES ── */
-const pages=document.querySelectorAll('.page');
-const TOTAL=pages.length;
-let current=0;
-let isAnimating=false;
-
-const NAMES=['Intro','Identité','Histoire','Apparence','Personnalité','Objectifs','Merci'];
-
-/* Build topnav */
-const topnavEl=document.getElementById('topnav');
-NAMES.forEach((name,i)=>{
-  if(i>0){const sep=document.createElement('div');sep.className='tnav-sep';topnavEl.appendChild(sep);}
-  const t=document.createElement('div');
-  t.className='tnav'+(i===0?' on':'');
-  t.textContent=name;
-  t.onclick=()=>goTo(i);
-  topnavEl.appendChild(t);
-});
-
-const totEl=document.getElementById('tot-pg');
-if(totEl) totEl.textContent=String(TOTAL).padStart(2,'0');
-
-function goTo(n){
-  if(n<0||n>=TOTAL||n===current||isAnimating)return;
-  isAnimating=true;
-  const dir=n>current?1:-1;
-  const prev=current;
-  pages[prev].classList.remove('active');
-  pages[prev].classList.add(dir>0?'exit-up':'exit-down');
-  current=n;
-  pages[current].classList.add('active');
-  document.querySelectorAll('.tnav').forEach((d,i)=>d.classList.toggle('on',i===current));
-  const curPgEl=document.getElementById('cur-pg');
-  if(curPgEl) curPgEl.textContent=String(current+1).padStart(2,'0');
-  playWood(current%2===0?140:110,.08,.35);
-  setTimeout(()=>{
-    pages[prev].classList.remove('exit-up','exit-down');
-    isAnimating=false;
-  },850);
-}
-function go(d){goTo(current+d);}
-
-/* Scroll / touch / keys */
-let lastScroll=0;
-window.addEventListener('wheel',e=>{
-  const now=Date.now();if(now-lastScroll<950)return;lastScroll=now;
-  go(e.deltaY>0?1:-1);
-},{passive:true});
-let ty=0;
-window.addEventListener('touchstart',e=>{if(e.touches.length>0)ty=e.touches[0].clientY;},{passive:true});
-window.addEventListener('touchend',e=>{
-  const now=Date.now();if(now-lastScroll<950)return;
-  if(e.changedTouches.length===0)return;
-  lastScroll=now;
-  const dy=ty-e.changedTouches[0].clientY;
-  if(Math.abs(dy)>40)go(dy>0?1:-1);
-},{passive:true});
-window.addEventListener('keydown',e=>{
-  if(e.key==='ArrowDown'||e.key==='ArrowRight')go(1);
-  if(e.key==='ArrowUp'||e.key==='ArrowLeft')go(-1);
-});
-
-document.querySelectorAll('.badge').forEach((el,i)=>el.addEventListener('click',()=>playWood([200,220,185,240][i%4],.09,.28)));
-document.querySelectorAll('.p1-stat').forEach((el,i)=>el.addEventListener('click',()=>playWood([100,115,90,125][i%4],.1,.38)));
-
-/* ── SABAKU CLAN SYMBOL ── */
-const sv=document.getElementById('sand-visual');
-if(sv){
-  const sc=sv.getContext('2d');
-  let svt=0;
-
-  function drawSV(){
-    const sw=sv.offsetWidth, sh=sv.offsetHeight;
-    if(sv.width!==sw||sv.height!==sh){sv.width=sw;sv.height=sh;}
-    sc.clearRect(0,0,sw,sh);
-    sc.fillStyle='#060402';sc.fillRect(0,0,sw,sh);
-    svt+=.4;
-
-    const cx=sw/2, cy=sh/2;
-    const base=Math.min(sw,sh)*.38;
-    const pulse=Math.sin(svt*.025)*0.04+1;
-    const rot=svt*.004;
-
-    /* Fond radial doux */
-    const bg=sc.createRadialGradient(cx,cy,0,cx,cy,base*1.6);
-    bg.addColorStop(0,'rgba(180,110,20,0.12)');
-    bg.addColorStop(1,'rgba(0,0,0,0)');
-    sc.fillStyle=bg;sc.fillRect(0,0,sw,sh);
-
-    /* Cercle extérieur tournant en pointillés */
-    sc.save();sc.translate(cx,cy);sc.rotate(rot);
-    sc.beginPath();sc.arc(0,0,base*1.35*pulse,0,Math.PI*2);
-    sc.setLineDash([4,6]);sc.strokeStyle='rgba(138,104,32,0.35)';sc.lineWidth=1;sc.stroke();
-    sc.setLineDash([]);sc.restore();
-
-    /* Cercle moyen tournant inversé */
-    sc.save();sc.translate(cx,cy);sc.rotate(-rot*1.5);
-    sc.beginPath();sc.arc(0,0,base*1.1*pulse,0,Math.PI*2);
-    sc.setLineDash([2,8]);sc.strokeStyle='rgba(200,164,90,0.25)';sc.lineWidth=.8;sc.stroke();
-    sc.setLineDash([]);sc.restore();
-
-    /* Cercle intérieur fixe */
-    sc.beginPath();sc.arc(cx,cy,base*.82,0,Math.PI*2);
-    sc.strokeStyle=`rgba(200,164,90,${.18+Math.sin(svt*.03)*.06})`;sc.lineWidth=1;sc.stroke();
-
-    /* Étoile à 5 branches (étoile du désert) */
-    sc.save();sc.translate(cx,cy);sc.rotate(rot*.5-Math.PI/2);
-    sc.beginPath();
-    for(let i=0;i<5;i++){
-      const a1=i*Math.PI*2/5;
-      const a2=(i+.5)*Math.PI*2/5;
-      const ox=Math.cos(a1)*base*.75*pulse;
-      const oy=Math.sin(a1)*base*.75*pulse;
-      const ix=Math.cos(a2)*base*.32*pulse;
-      const iy=Math.sin(a2)*base*.32*pulse;
-      if(i===0)sc.moveTo(ox,oy);else sc.lineTo(ox,oy);
-      sc.lineTo(ix,iy);
-    }
-    sc.closePath();
-    sc.strokeStyle=`rgba(200,164,90,${.45+Math.sin(svt*.02)*.1})`;sc.lineWidth=1.2;sc.stroke();
-    sc.fillStyle=`rgba(200,164,90,${.06+Math.sin(svt*.02)*.02})`;sc.fill();
-    sc.restore();
-
-    /* Traits radiaux sur l'étoile */
-    sc.save();sc.translate(cx,cy);sc.rotate(rot*.5-Math.PI/2);
-    for(let i=0;i<5;i++){
-      const a=i*Math.PI*2/5;
-      sc.beginPath();
-      sc.moveTo(Math.cos(a)*base*.32*pulse,Math.sin(a)*base*.32*pulse);
-      sc.lineTo(Math.cos(a)*base*.75*pulse,Math.sin(a)*base*.75*pulse);
-      sc.strokeStyle='rgba(200,164,90,0.15)';sc.lineWidth=.5;sc.stroke();
-    }
-    sc.restore();
-
-    /* Croissant de lune en bas (symbole désert) */
-    sc.save();sc.translate(cx,cy+base*.1);
-    const cm=base*.18*pulse;
-    sc.beginPath();sc.arc(0,0,cm,Math.PI*.15,Math.PI*.85);
-    sc.strokeStyle=`rgba(232,201,122,${.5+Math.sin(svt*.02)*.15})`;sc.lineWidth=1.5;sc.stroke();
-    sc.restore();
-
-    /* Point central pulsant */
-    const glow=sc.createRadialGradient(cx,cy,0,cx,cy,base*.12);
-    glow.addColorStop(0,`rgba(240,210,120,${.7+Math.sin(svt*.04)*.3})`);
-    glow.addColorStop(.4,`rgba(200,164,90,${.3+Math.sin(svt*.04)*.1})`);
-    glow.addColorStop(1,'rgba(0,0,0,0)');
-    sc.beginPath();sc.arc(cx,cy,base*.12,0,Math.PI*2);
-    sc.fillStyle=glow;sc.fill();
-
-    /* Petits points orbitaux */
-    for(let i=0;i<8;i++){
-      const a=svt*.015+i*Math.PI*2/8;
-      const r=base*1.35;
-      const px=cx+Math.cos(a)*r;
-      const py=cy+Math.sin(a)*r;
-      const pa=.15+Math.sin(svt*.04+i)*.1;
-      sc.beginPath();sc.arc(px,py,1.2,0,Math.PI*2);
-      sc.fillStyle=`rgba(200,164,90,${pa})`;sc.fill();
-    }
-
-    /* Particules de sable légères */
-    if(!sv._pts){
-      sv._pts=Array.from({length:40},()=>({
-        x:Math.random()*sw,y:Math.random()*sh,
-        vx:Math.random()*.4+.1,vy:(Math.random()-.5)*.2,
-        r:Math.random()*.8+.2,a:Math.random()*.3+.05,
-        col:['#c8a45a','#e8c97a','#8a6820'][Math.floor(Math.random()*3)]
-      }));
-    }
-    for(const p of sv._pts){
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x>sw+5)p.x=-5;
-      sc.beginPath();sc.arc(p.x,p.y,p.r,0,Math.PI*2);
-      sc.fillStyle=p.col;sc.globalAlpha=p.a;sc.fill();sc.globalAlpha=1;
-    }
-
-    requestAnimationFrame(drawSV);
-  }
-  drawSV();
-}
+document.querySelectorAll('.badge').forEach((el,i)=>el.addEventListener('click',()=>pw([200,220,185,240][i%4],.09,.28)));
+document.querySelectorAll('.p1-stat').forEach((el,i)=>el.addEventListener('click',()=>pw([100,115,90,125][i%4],.1,.38)));
 </script>
 </body>
 </html>
